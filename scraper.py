@@ -31,7 +31,11 @@ for link in links:
 	if '[CSV]' in title:
 		title = title.upper().strip()
 		# create the right strings for the new filename
-		csvYr = title.split(' ')[-2]
+		if '20' not in title:
+			csvYr = '2013'
+		else:
+			csvYr = title.split(' ')[-2]
+		
 		csvMth = title.split(' ')[-3][:3]
 		csvMth = csvMth.upper()
 		csvMth = convert_mth_strings(csvMth);
