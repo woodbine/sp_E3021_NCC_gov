@@ -33,10 +33,11 @@ for link in links:
 		# create the right strings for the new filename
 		if '20' not in title:
 			csvYr = '2013'
+			csvMth = title.split(' ')[-2][:3]
 		else:
 			csvYr = title.split(' ')[-2]
+			csvMth = title.split(' ')[-3][:3]
 		
-		csvMth = title.split(' ')[-3][:3]
 		csvMth = csvMth.upper()
 		csvMth = convert_mth_strings(csvMth);
 		filename = entity_id + "_" + csvYr + "_" + csvMth + ".csv"
