@@ -96,7 +96,7 @@ soup = BeautifulSoup(html, 'lxml')
 
 #### SCRAPE DATA
 
-financial = soup.find(text=re.compile('2014/2015 Financial year'))
+financial = soup.find(text=re.compile('2015/2016 financial year'))
 links = financial.find_all_next('a', href=True)
 for link in links:
     url = 'http://www.nottinghamshire.gov.uk' + link['href']
@@ -131,6 +131,5 @@ for row in data:
 
 if errors > 0:
     raise Exception("%d errors occurred during scrape." % errors)
-
 
 #### EOF
