@@ -96,22 +96,22 @@ soup = BeautifulSoup(html, 'lxml')
 
 #### SCRAPE DATA
 
-financial = soup.find(text=re.compile('2015/2016 financial year'))
+financial = soup.find(text=re.compile('2016/2017 financial year'))
 links = financial.find_all_next('a', href=True)
 for link in links:
     url = 'http://www.nottinghamshire.gov.uk' + link['href']
     title = link.encode_contents(formatter='html').replace('&nbsp;',' ')
-    if '.csv' in link['href']:
+    if '.csv' in link['href'] and link['href']:
         title = title.upper().strip()
         if '20' not in title:
-            csvYr = '2013'
-            csvMth = title.split(' ')[-2][:3]
+            csvYr = '2016'
+            csvMth = title.split(' ')[0][:3]
         else:
             csvYr = title.split(' ')[1][:4]
             csvMth = title.split(' ')[0][:3]
-
-        csvMth = convert_mth_strings(csvMth.upper())
-        data.append([csvYr, csvMth, url])
+        if csvMth:
+            csvMth = convert_mth_strings(csvMth.upper())
+            data.append([csvYr, csvMth, url])
 
 #### STORE DATA 1.0
 
@@ -131,5 +131,6 @@ for row in data:
 
 if errors > 0:
     raise Exception("%d errors occurred during scrape." % errors)
+
 
 #### EOF
